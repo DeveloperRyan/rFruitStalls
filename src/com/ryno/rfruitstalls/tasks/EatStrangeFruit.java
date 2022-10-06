@@ -26,6 +26,6 @@ public class EatStrangeFruit extends Task {
             fruit.interact("Eat");
         }
 
-        return Condition.wait(() -> !fruit.valid(), 100, 10);
+        return Condition.wait(() -> !fruit.valid(), 100, 15);
     }
 }

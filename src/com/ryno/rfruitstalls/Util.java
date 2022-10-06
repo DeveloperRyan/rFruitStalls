@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Util {
     public static boolean playerAtStalls() {
-        return Constants.STALL_AREA.contains(Players.local().tile());
+        return Constants.GENERAL_STALL_AREA.contains(Players.local().tile());
     }
 
     public static boolean inventoryContainsFruit() {

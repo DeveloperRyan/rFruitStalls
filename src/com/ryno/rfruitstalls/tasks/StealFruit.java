@@ -4,10 +4,9 @@ import com.ryno.rfruitstalls.Constants;
 import com.ryno.rfruitstalls.Task;
 import com.ryno.rfruitstalls.Util;
 import org.powbot.api.Condition;
-import org.powbot.api.rt4.Camera;
-import org.powbot.api.rt4.GameObject;
-import org.powbot.api.rt4.Inventory;
-import org.powbot.api.rt4.Objects;
+import org.powbot.api.rt4.*;
+import org.powbot.api.rt4.walking.model.InteractionType;
+import org.powbot.api.rt4.walking.model.Skill;
 
 public class StealFruit extends Task {
     public StealFruit(String name) {
@@ -21,16 +20,35 @@ public class StealFruit extends Task {
 
     @Override
     public boolean execute() {
-        GameObject stall = Objects.stream().id(Constants.INTERACTABLE_STALL_ID).within(8).first();
+        System.out.println("[DEBUG] Streaming for stalls");
+        long start = System.nanoTime();
+        GameObject stall = Objects.stream().within(8).id(Constants.INTERACTABLE_STALL_ID).first();
+        long end = System.nanoTime();
+        System.out.println("[DEBUG] Total time: " + (end - start) / 1000000);
 
-        if (!stall.inViewport()) {
-            Camera.turnTo(stall);
-        }
-
+        int xp = Skill.Thieving.experience();
         if (stall.valid()) {
-            stall.interact("Steal-from");
+            System.out.println("[DEBUG] Checking for stall in viewport");
+            start = System.nanoTime();
+            if (!stall.inViewport()) {
+                Camera.turnTo(stall);
+            }
+            end = System.nanoTime();
+            System.out.println("[DEBUG] Total time: " + (end - start) / 1000000);
 
-            return Condition.wait(() -> !stall.valid(), 100, 10);
+            System.out.println("[DEBUG] Interacting with stall");
+            start = System.nanoTime();
+            stall.click("Steal-from");
+            end = System.nanoTime();
+            System.out.println("[DEBUG] Total time: " + (end - start) / 1000000);
+
+            System.out.println("[DEBUG] Waiting for stall to be empty");
+            start = System.nanoTime();
+            boolean status = Condition.wait(() -> xp < Skill.Thieving.experience(), 50, 100);
+            end = System.nanoTime();
+            System.out.println("[DEBUG] Total time: " + (end - start) / 1000000);
+
+            return status;
         }
         return false;
     }

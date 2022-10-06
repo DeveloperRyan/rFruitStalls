@@ -54,7 +54,12 @@ public class Script extends AbstractScript {
     public void poll() {
         for (Task task : taskList) {
             System.out.println("[DEBUG] Checking task " + task.name);
-            if (task.activate()) {
+            long start = System.nanoTime();
+            boolean shouldActivate = task.activate();
+            long end = System.nanoTime();
+            System.out.println("[DEBUG] Total time: " + (end - start) / 1000000);
+
+            if (shouldActivate) {
                 currentTask = task;
                 System.out.println("[DEBUG] Current task: " + currentTask.name);
 
