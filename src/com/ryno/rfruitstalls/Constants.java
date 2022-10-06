@@ -7,7 +7,17 @@ import org.powbot.api.rt4.Item;
 import java.util.HashSet;
 
 public class Constants {
-    public static Area STALL_AREA = new Area(new Tile(1796, 3609, 0), new Tile(1799, 3607, 0));
+    public static Area GENERAL_STALL_AREA = new Area(
+        new Tile(1793, 3609, 0),
+        new Tile(1794, 3607, 0),
+        new Tile(1796, 3605, 0),
+        new Tile(1801, 3605, 0),
+        new Tile(1802, 3607, 0),
+        new Tile(1802, 3610, 0),
+        new Tile(1800, 3611, 0),
+        new Tile(1796, 3611, 0)
+    );
+    public static Area WALKING_STALL_AREA = new Area(new Tile(1794, 3609, 0), new Tile(1801, 3606, 0));
     public static int INTERACTABLE_STALL_ID = 28823;
 
 
@@ -20,6 +30,7 @@ public class Constants {
     public static final String REDBERRIES_STRING = "Redberries";
     public static final String PINEAPPLE_STRING = "Pineapple";
     public static final String LIME_STRING = "Lime";
+    public static final String PAPAYA_STRING = "Papaya fruit";
     public static final String GOLOVANOVA_STRING = "Golovanova fruit top";
 
     public static HashSet<String> FRUIT_STRINGS = new HashSet<>(){
@@ -33,6 +44,7 @@ public class Constants {
             add(REDBERRIES_STRING);
             add(PINEAPPLE_STRING);
             add(LIME_STRING);
+            add(PAPAYA_STRING);
             add(GOLOVANOVA_STRING);
         }
     };

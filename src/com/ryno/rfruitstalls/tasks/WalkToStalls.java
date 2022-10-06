@@ -13,12 +13,12 @@ public class WalkToStalls extends Task {
 
     @Override
     public boolean activate() {
-        return !Constants.STALL_AREA.contains(Players.local().tile());
+        return !Constants.GENERAL_STALL_AREA.contains(Players.local().tile());
     }
 
     @Override
     public boolean execute() {
-        WebWalkingResult status = Movement.builder(Constants.STALL_AREA.getRandomTile()).setRunMin(20).setRunMax(70).move();
+        WebWalkingResult status = Movement.builder(Constants.WALKING_STALL_AREA.getRandomTile()).setRunMin(20).setRunMax(70).move();
         return status.getSuccess();
     }
 }
